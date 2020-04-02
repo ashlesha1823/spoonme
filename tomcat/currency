@@ -1,0 +1,74 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(name=”currency”, urlPatterns={“/currency”})
+public class currency extends HttpServlet {
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+response.setContentType(“text/html;charset=UTF-8”);
+PrintWriter out = response.getWriter();
+try {
+String s = request.getParameter(“type”);
+String s1 = request.getParameter(“b1”);
+
+Double amount = Double.parseDouble(request.getParameter(“t1”));
+Double res=0.0;
+
+if(s.equals(“Rupee”)&& s1.equals(“dollar”))
+{
+res = 60*amount;
+}
+if(s.equals(“Dollar”)&& s1.equals(“dollar”))
+{
+res = amount;
+}
+if(s.equals(“Rupee”)&& s1.equals(“euro”))
+{
+res = 0.013*amount;
+}
+if(s.equals(“Dollar”)&& s1.equals(“euro”))
+{
+res = 0.089*amount;
+}
+
+out.println(“<html>”);
+out.println(“<head>”);
+out.println(“<title>Servlet currency</title>”);
+out.println(“</head>”);
+out.println(“<body>”);
+out.println(“<h3>”+s+amount+” “+”to “+s1+res+”</h2>”);
+out.println(“</body>”);
+out.println(“</html>”);
+
+Powered by wordads.co
+Seen ad many times
+Not relevant
+Offensive
+Covers content
+Broken
+REPORT THIS AD
+
+} finally {
+out.close();
+}
+}
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+processRequest(request, response);
+}
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+processRequest(request, response);
+}
+@Override
+public String getServletInfo() {
+return “Short description”;
+}// </editor-fold>
+}
